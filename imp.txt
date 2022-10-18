@@ -1,4 +1,4 @@
-*1.Hufflepuff:
+*1.Hufflepuff: python
 //direct online
 N = 5
 G = [[0, 19, 5, 0, 0],
@@ -34,7 +34,7 @@ while (no_edge < N - 1):
     no_edge += 1
 print(cost)
 
-2. large integer multiplication
+2. large integer multiplication //python
 
  def lmul(a,b):
     if len(str(a)) ==1 and len(str(b))==1:
@@ -55,7 +55,7 @@ b=int(input("Enter the number : "))
 ans=lmul(a,b)
 print(ans)
 
-3. strassens multiplication //online
+3. strassens multiplication //online python
 
  import numpy as np
 def strassen_algorithm(x, y):
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     print('Matrix multiplication result: ')
     print(strassen_algorithm(x, y))
     
-4. kruskals algorithm //cpp
+4. kruskals algorithm //cpp udemy
 #include <iostream>
 
 #define I 32767
@@ -182,7 +182,7 @@ int main() {
 }
 
 
-5. prims algorithm //cpp
+5. prims algorithm //cpp udemy
 
 #include <iostream>
 #define V 8
@@ -280,4 +280,237 @@ int main() {
 }
 
 
+6. kruskals python online
 
+# Python program for Kruskal's algorithm to find
+# Minimum Spanning Tree of a given connected,
+# undirected and weighted graph
+
+# Class to represent a graph
+
+
+class Graph:
+
+def __init__(self, vertices):
+self.V = vertices # No. of vertices
+self.graph = []
+# to store graph
+
+# function to add an edge to graph
+def addEdge(self, u, v, w):
+self.graph.append([u, v, w])
+
+# A utility function to find set of an element i
+# (truly uses path compression technique)
+def find(self, parent, i):
+if parent[i] != i:
+# Reassignment of node's parent to root node as
+# path compression requires
+parent[i] = self.find(parent, parent[i])
+return parent[i]
+
+# A function that does union of two sets of x and y
+# (uses union by rank)
+def union(self, parent, rank, x, y):
+
+# Attach smaller rank tree under root of
+# high rank tree (Union by Rank)
+if rank[x] < rank[y]:
+parent[x] = y
+elif rank[x] > rank[y]:
+parent[y] = x
+
+# If ranks are same, then make one as root
+# and increment its rank by one
+else:
+parent[y] = x
+rank[x] += 1
+
+# The main function to construct MST using Kruskal's
+# algorithm
+def KruskalMST(self):
+
+result = [] # This will store the resultant MST
+
+# An index variable, used for sorted edges
+i = 0
+
+# An index variable, used for result[]
+e = 0
+
+# Step 1: Sort all the edges in
+# non-decreasing order of their
+# weight. If we are not allowed to change the
+# given graph, we can create a copy of graph
+self.graph = sorted(self.graph,
+key=lambda item: item[2])
+
+parent = []
+rank = []
+
+# Create V subsets with single elements
+for node in range(self.V):
+parent.append(node)
+rank.append(0)
+
+# Number of edges to be taken is equal to V-1
+while e < self.V - 1:
+
+# Step 2: Pick the smallest edge and increment
+# the index for next iteration
+u, v, w = self.graph[i]
+i = i + 1
+x = self.find(parent, u)
+y = self.find(parent, v)
+
+# If including this edge doesn't
+# cause cycle, then include it in result
+# and increment the index of result
+# for next edge
+if x != y:
+e = e + 1
+result.append([u, v, w])
+self.union(parent, rank, x, y)
+# Else discard the edge
+
+minimumCost = 0
+print("Edges in the constructed MST")
+for u, v, weight in result:
+minimumCost += weight
+print("%d -- %d == %d" % (u, v, weight))
+print("Minimum Spanning Tree", minimumCost)
+
+
+# Driver's code
+if __name__ == '__main__':
+g = Graph(4)
+g.addEdge(0, 1, 10)
+g.addEdge(0, 2, 6)
+g.addEdge(0, 3, 5)
+g.addEdge(1, 3, 15)
+g.addEdge(2, 3, 4)
+
+# Function call
+g.KruskalMST()
+
+# This code is contributed by Neelam Yadav
+# Improved by James Graça-Jones
+
+7. huffman friend python
+
+label = ['a','b','c','d','e']
+frequency = [0.1,0.1,0.2,0.2,0.4]
+dic2 = {'a' : 0.1,'b':0.1,'c':0.2,'d':0.2,'e':0.4}
+dic = {}
+for i in label:
+    dic[i] = ""
+for i in range(len(frequency)):
+    for j in range(i+1,len(frequency)):
+        if frequency[i]>frequency[j]:
+            frequency[i],frequency[j] = frequency[j],frequency[i]
+            label[i],label[j] = label[j],label[i]
+while(len(frequency)!=1):
+    c1 = list(label.pop(0))
+    for i in c1:
+        dic[i] = '0'+dic[i]
+    c2 = list(label.pop(0))
+    for i in c2:
+        dic[i] = '1' + dic[i]
+    n1 = frequency.pop(0)
+    n2 = frequency.pop(0)  
+    frequency.insert(0,n1+n2)
+    label.insert(0,c1+c2)
+    for i in range(len(frequency)):
+        for j in range(i+1,len(frequency)):
+            if frequency[i]>frequency[j]:
+                frequency[i],frequency[j] = frequency[j],frequency[i]
+                label[i],label[j] = label[j],label[i]
+avg = 0
+for i in dic:
+    print(i,' : ',dic[i])
+    avg += dic2[i]*len(dic[i])
+print('The Average Huffman Code Length is : ',avg)  
+
+8. toplogical sorting
+
+from collections import defaultdict
+class Graph:
+def __init__(self, vertices):
+self.graph = defaultdict(list) 
+self.V = vertices # No. of vertices
+
+def addEdge(self, u, v):
+self.graph[u].append(v)
+
+def topologicalSortUtil(self, v, visited, stack):
+
+visited[v] = True
+
+for i in self.graph[v]:
+if visited[i] == False:
+self.topologicalSortUtil(i, visited, stack)
+
+stack.append(v)
+
+
+def topologicalSort(self):
+
+visited = [False]*self.V
+stack = []
+
+for i in range(self.V):
+if visited[i] == False:
+self.topologicalSortUtil(i, visited, stack)
+
+print(stack[::-1]) # return list in reverse order
+
+
+# Driver Code
+if __name__ == '__main__':
+g = Graph(6)
+g.addEdge(0,1)
+g.addEdge(0,5)
+g.addEdge(1,2)
+g.addEdge(1,3)
+g.addEdge(2,3)
+g.addEdge(4,3)
+g.addEdge(4,5)
+
+
+print("Following is a Topological Sort of the given graph")
+
+g.topologicalSort()
+
+9.prims python online
+
+INF = 9999999
+V = 6
+Label = ['0','1','2','3','4','5']
+G = [[0, 1, 9, 0, 0, 0 ],
+     [1, 0, 8, 2,7,0],
+     [9, 8, 0, 3,0,0],
+     [0, 2, 3, 0,4,6],
+     [0,7,0,4,0,5],
+     [0,0,0,6,5,0]
+     ]
+selected = [0, 0, 0, 0,0,0]
+no_edge = 0
+
+selected[0] = True
+print("Edge : Weight\n")
+while (no_edge < V - 1):
+    minimum = INF
+    x = 0
+    y = 0
+    for i in range(V):
+        if selected[i]:
+            for j in range(V):
+                if ((not selected[j]) and G[i][j]):  
+                    # not in selected and there is an edge
+                    if minimum > G[i][j]:
+                        minimum = G[i][j]
+                        x = i
+                        y = j
+    print(str(Label[x]) + "-" + str(Label[y]) + ":" + str(G[x][y]))
+    selected[y] = True
+    no_edge += 1
