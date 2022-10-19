@@ -36,24 +36,33 @@ print(cost)
 
 2. large integer multiplication //python
 
- def lmul(a,b):
-    if len(str(a)) ==1 and len(str(b))==1:
-        return a*b
+import math
+
+def divide(x,num):
+    if(x==0):
+        return (num%10)
+    if(x==1):
+        return (num//10)
+def rec_mul(x,y):
+    n = int(math.log(x,10))
+    if(n==1):
+        return x*y
     else:
-        l=max(len(str(a)),len(str(b)))
-        split=int("1"+"0"*(l//2))
-        a1=a//split
-        a0=a%split
-        b1=b//split
-        b0=b%split
-        c2=lmul(a1,b1)
-        c0=lmul(a0,b0)
-        xc=lmul((a1+a0),(b1+b0))
-        return (c2*10**l)+((xc-c2-c0)*10**(l//2))+c0
-a=int(input("Enter the number : "))
-b=int(input("Enter the number : "))
-ans=lmul(a,b)
-print(ans)
+        x0 = divide(0,x)
+        x1 = divide(1,x)
+        y0 = divide(0,y)
+        y1 = divide(1,y)
+    c1= rec_mul(x1+x0,y1+y0)
+    c2 = rec_mul(x1, y1)
+    c0 = rec_mul(x0,y0)
+    return(c2*(10**n) + (c1-c2-c0)*(10**(n//2))+c0)
+def main():
+    x = int(input("Enter x: "))    
+    y = int(input("Enter y: "))    
+    ans = rec_mul(x,y)
+    print("Answer:",ans)
+
+main() 
 
 3. strassens multiplication //online python
 
